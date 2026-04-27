@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Decision Tree</title>
+  <link rel="stylesheet" href="tree.css">
+</head>
+
+<body>
+  <div id="bodyWrap">
+    <div id="selectForm">
+      <div class="border">
+      <div class="inputs">
+        <div>
+          <label for="issueType">Issue Type:</label>
+          <select id="issueType">
+            <option value="technicalSupport">Technical Support</option>
+            <option value="billing">Billing</option>
+          </select>
+        </div>
+        <div>
+          <label for="radioType">Radio Type:</label>
+          <select id="radioType">
+            <option value="ubiquiti">Ubiquiti</option>
+            <option value="telrad">Telrad</option>
+            <option value="mimosa">Mimosa</option>
+            <option value="cambium">Cambium</option>
+            <option value="tarana">Tarana</option>
+	    <option value="apartments">Apartments</option>
+          </select>
+        </div>
+        <div id="complaint">
+          <label for="complaintType">Complaint Type:</label>
+          <select id="complaintType">
+          </select>
+        </div>
+        <div>
+          <button id="selectButton">Select</button>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div id="tree">
+      <div>
+        <p>Prompts:</p>
+        <ul id="previousPrompts">
+        </ul>
+      </div>
+      <div>
+        <p>Options:</p>
+        <ul id="options">
+        </ul>
+      </div>
+    </div>
+    <div id="notesInput">
+      <label for="notes">Notes:</label>
+      <textarea id="notes"></textarea>
+    </div>
+    <div id="customerInfo">
+      <div>
+        <label>
+         Customer Name: 
+         <input type="text"></input>
+        </label>
+      </div>
+      <div>
+        <label>
+         ID: 
+         <input type="text"></input>
+        </label>
+      </div>
+      <div>
+        <label>
+           Phone Number: 
+         <input type="text"></input>
+        </label>
+      </div>
+    </div>
+    <div id="buttons">
+      <button id="ticketButton">Create Ticket</button>
+      <button id="reset">Reset</button>
+    </div>
+    <div id="optionRadioInputOuterContainer">
+      <div id="optionRadioInputInnerContainer" class="border">
+        <div id="additionalOptions">
+          <p>Additional Options</p>
+          <div>
+            <ul>
+              <li id="issueResolved">The customers issue is resolved.</li>
+              <li id="notHome">The customer isn't available to troubleshoot.</li>
+              <li id="earlyEscalate">No longer able to follow tree/Customer is no longer working with you</li>
+              <li id="intermittentConnectionRestoredConnection">Intermittent Connection: Customer has confirmed connection</li>
+            </ul>
+          </div>
+        </div>
+        <div id="radioInputs">
+          <div id="ubiquitiRadio" class="radioInfo">
+            <div class="ap">
+              <label for="connectedAp">Connected AP:</label>
+              <input type="text" id="connectedAp"></input>
+            </div>
+            <div>
+              <label for="localSignal">Local Signal:</label>
+              <input type="text" id="localSignal" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="remoteSignal">Remote Signal:</label>
+              <input type="text" id="remoteSignal" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="localChains">Local Chains:</label>
+              <input type="text" id="localChains" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="remoteChains">Remote Chains:</label>
+              <input type="text" id="remoteChains" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="localNoiseFloor">Local Noise Floor:</label>
+              <input type="text" id="localNoiseFloor" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="remoteNoiseFloor">Remote Noise Floor:</label>
+              <input type="text" id="remoteNoiseFloor" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="localModulation">Local Modulation:</label>
+              <input type="text" id="localModulation" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="remoteModulation">Remote Modulation:</label>
+              <input type="text" id="remoteModulation" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="ubiquitiRouterFrequency">Router Frequency:</label>
+              <input type="text" id="ubiquitiRouterFrequency" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="ubiquitiRadioFrequency">Radio Frequency:</label>
+              <input type="text" id="ubiquitiRadioFrequency" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="ping">Ping:</label>
+              <input type="text" id="ping" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="bandwidth">Bandwidth:</label>
+              <input type="text" id="bandwidth" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="ubiquitiLanSpeeds">LAN Speed:</label>
+              <input type="text" list="speeds" id="ubiquitiLanSpeeds" />
+            </div>
+          </div>
+          <div id="telradRadio" class="radioInfo">
+            <div>
+              <label for="pci">PCI:</label>
+              <input type="text" id="pci" class="shortInput"></input>
+            </div>
+	    <div>
+              <label for="enode">eNodeB ID:</label>
+              <input type="text" id="enode" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="signal">Signal:</label>
+              <input type="text" id="signal" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="sinr">SINR:</label>
+              <input type="text" id="sinr" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="cell">Cell:</label>
+              <input type="text" id="cell" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="cellLocked">Cell Locked:</label>
+              <input type="text" id="cellLocked" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="telradPing">Ping:</label>
+              <input type="text" id="telradPing" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="telradBandwidth">Bandwidth:</label>
+              <input type="text" id="telradBandwidth" class="shortInput"></input>
+            </div>
+          </div>
+          <div id="mimosaRadio" class="radioInfo">
+            <div class="ap">
+              <label for="mimosaAp">Connected AP:</label>
+              <input type="text" id="mimosaAp"></input>
+            </div>
+            <div>
+              <label for="localMcs">Local MCS:</label>
+              <input type="text" id="localMcs" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="remoteMcs">Remote MCS:</label>
+              <input type="text" id="remoteMcs" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="mimosaRouterFrequency">Router Frequency:</label>
+              <input type="text" id="mimosaRouterFrequency" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="mimosaRadioFrequency">Radio Frequency:</label>
+              <input type="text" id="mimosaRadioFrequency" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="mimosaSignal">Signal:</label>
+              <input type="text" id="mimosaSignal" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="mimosaPing">Ping:</label>
+              <input type="text" id="mimosaPing" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="mimosaBandwidth">Bandwidth:</label>
+              <input type="text" id="mimosaBandwidth" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="mimosaLanSpeeds">LAN Speed:</label>
+              <input type="text" list="speeds" id="mimosaLanSpeeds" />
+            </div>
+          </div>
+          <div id="cambiumRadio" class="radioInfo">
+            <div class="ap">
+              <label for="cambiumAp">Color Code / AP:</label>
+              <input type="text" id="cambiumAp"></input>
+            </div>
+            <div>
+              <label for="cambiumSignal">Signal:</label>
+              <input type="text" id="cambiumSignal" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="cambiumSinr">SINR:</label>
+              <input type="text" id="cambiumSinr" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="cambiumRouterFrequency">Router Frequency:</label>
+              <input type="text" id="cambiumRouterFrequency" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="cambiumRadioFrequency">Radio Frequency:</label>
+              <input type="text" id="cambiumRadioFrequency" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="cambiumPing">Ping:</label>
+              <input type="text" id="cambiumPing" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="cambiumBandwidth">Bandwidth:</label>
+              <input type="text" id="cambiumBandwidth" class="shortInput"></input>
+            </div>
+            <div>
+              <label for="cambiumLanSpeeds">LAN Speed:</label>
+              <input type="text" list="speeds" id="cambiumLanSpeeds" />
+            </div>
+          </div>
+          <div id="taranaRadio" class="radioInfo">
+            <div class="ap">
+              <label for="connectedAp">Connected AP:</label>
+              <input type="text" id="connectedAp"></input>
+            </div>
+            <div>
+            <label for="pathloss">Pathloss:</label>
+            <input type="text" id="pathloss" class="shortInput"></input>
+          </div>
+          <div>
+            <label for="slaProfile">SLA Profile:</label>
+            <input type="text" list="sla" id="slaProfile" class="shortInput"></input>
+            <datalist id="sla">
+              <option>Min</option>
+              <option>5M</option>
+              <option>10M</option>
+              <option>20M</option>
+              <option>25M</option>
+              <option>50M</option>
+              <option>100M</option>
+              <option>150M</option>
+              <option>200M</option>
+              <option>250M</option>
+              <option>300M</option>
+              <option>400M</option>
+              <option>500M</option>
+              <option>600M</option>
+              <option>1000M</option>
+              <option>Max</option>
+            </datalist>
+          </div>
+          <div>
+            <label for="sinrDown">SINR Down:</label>
+            <input type="text" id="sinrDown" class="shortInput"></input>
+          </div>
+          <div>
+            <label for="sinrUp">SINR Up:</label>
+            <input type="text" id="sinrUp" class="shortInput"></input>
+          </div>
+          <div>
+            <label for="alignmentMetric">Alignment Metric:</label>
+            <input type="text" id="alignmentMetric" class="shortInput"></input>
+          </div>
+          <div>
+            <label for="taranaLanSpeeds">LAN Speed:</label>
+            <input type="text" list="speeds" id="taranaLanSpeeds" />
+            <datalist id="speeds">
+              <option>10mbps Full-Duplex</option>
+              <option>100mbps Full-Duplex</option>
+              <option>1000mbps Full-Duplex</option>
+              <option>Half-Duplex</option>
+              <option>No Link</option>
+            </datalist>
+          </div>
+          <div>
+            <label for="taranaPing">Ping:</label>
+            <input type="text" id="taranaPing" class="shortInput"></input>
+          </div>
+          <div>
+            <label for="taranaBandwidth">Bandwidth:</label>
+            <input type="text" id="taranaBandwidth" class="shortInput"></input>
+          </div>
+
+          </div>
+          <div id="apartmentsRadio" class="radioInfo">
+          <div>
+            <label for="apartmentsPing">Ping:</label>
+            <input type="text" id="apartmentsPing" class="shortInput"></input>
+          </div>
+          <div>
+            <label for="apartmentsBandwidth">Bandwidth:</label>
+            <input type="text" id="apartmentsBandwidth" class="shortInput"></input>
+          </div>
+          <div>
+            <label for="apartmentsSpeeds">LAN Speed:</label>
+            <input type="text" list="speeds" id="apartmentsSpeeds"></input>
+            <datalist id="speeds">
+              <option>10mbps Full-Duplex</option>
+              <option>100mbps Full-Duplex</option>
+              <option>1000mbps Full-Duplex</option>
+              <option>Half-Duplex</option>
+              <option>No Link</option>
+            </datalist>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div id="clipboardConfirm">
+      Text has been copied to clipboard!
+    </div>
+    <div id="resetConfirm">
+      <p>Are you sure you want to reset?</p>
+      <div>
+        <button id="resetYes">Yes</button>
+        <button id="resetNo">No</button>
+      </div>
+    </div>
+    <button id="settingsButton">
+      <div id="cog">
+        <svg fill="#000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 569.613 569.614" xml:space="preserve">
+          <g>
+            <g>
+              <path d="M371.49,563.638l113.052-65.854c5.26-3.063,9.088-8.094,10.64-13.975c1.555-5.888,0.701-12.148-2.359-17.405
+			l-30.769-52.807c4.789-6.524,9.083-13.115,12.972-19.918c3.893-6.799,7.405-13.84,10.606-21.275l61.114-0.221
+			c6.086-0.021,11.915-2.464,16.202-6.781c4.287-4.32,6.687-10.165,6.665-16.255l-0.48-130.833
+			c-0.024-6.089-2.464-11.919-6.784-16.206c-4.299-4.269-10.113-6.662-16.166-6.662c-0.03,0-0.062,0-0.089,0l-61.182,0.242
+			c-6.444-14.462-14.428-28.14-23.871-40.913l30.417-53.143c6.294-11.001,2.481-25.025-8.52-31.316L369.403,5.335
+			c-5.281-3.023-11.545-3.822-17.424-2.231c-5.872,1.598-10.872,5.462-13.892,10.747L307.665,67
+			c-15.766-1.662-31.653-1.613-47.363,0.144l-30.796-52.892c-3.063-5.263-8.094-9.091-13.975-10.646
+			c-5.884-1.551-12.148-0.704-17.408,2.359L85.068,71.823c-10.949,6.38-14.657,20.429-8.28,31.38l30.765,52.831
+			c-4.761,6.484-9.048,13.076-12.953,19.899c-3.904,6.824-7.417,13.855-10.6,21.255l-61.139,0.235
+			C10.187,197.472-0.046,207.785,0,220.456L0.48,351.29c0.024,6.086,2.463,11.919,6.784,16.206
+			c4.299,4.269,10.11,6.661,16.166,6.661c0.028,0,0.058,0,0.086,0l61.203-0.229c6.432,14.452,14.413,28.131,23.868,40.915
+			l-30.413,53.141c-3.023,5.284-3.825,11.548-2.231,17.423c1.597,5.872,5.462,10.872,10.747,13.896l113.535,64.977
+			c3.596,2.056,7.513,3.032,11.38,3.032c7.962,0,15.701-4.146,19.942-11.552l30.417-53.149c15.799,1.671,31.684,1.619,47.348-0.144
+			l30.799,52.89c3.066,5.26,8.094,9.088,13.978,10.643C359.967,567.552,366.23,566.705,371.49,563.638z M341.129,465.911
+			c-4.902-8.418-14.599-12.815-24.137-10.994c-20.588,3.935-42.174,3.999-63.128,0.202c-9.572-1.735-19.184,2.741-24.015,11.181
+			l-26.748,46.745l-73.694-42.18l26.75-46.741c4.832-8.439,3.819-19.006-2.521-26.371c-13.978-16.239-24.685-34.594-31.818-54.554
+			c-3.265-9.131-11.918-15.227-21.61-15.227c-0.027,0-0.058,0-0.085,0l-53.825,0.199l-0.315-84.937l53.819-0.205
+			c9.722-0.04,18.366-6.197,21.576-15.374c3.69-10.557,7.962-20.019,13.06-28.917c5.101-8.914,11.089-17.387,18.311-25.897
+			c6.294-7.417,7.225-17.993,2.334-26.396l-27.081-46.509l73.385-42.754l27.078,46.497c4.893,8.4,14.544,12.821,24.095,11.004
+			c20.716-3.911,42.317-3.978,63.189-0.19c9.557,1.753,19.189-2.742,24.019-11.178l26.753-46.744l73.697,42.179l-26.753,46.742
+			c-4.826,8.437-3.816,19,2.521,26.368c13.956,16.221,24.669,34.587,31.842,54.59c3.271,9.119,11.919,15.202,21.604,15.202
+			c0.031,0,0.062,0,0.092,0l53.789-0.214l0.315,84.927l-53.783,0.192c-9.712,0.037-18.351,6.182-21.569,15.347
+			c-3.746,10.654-8.023,20.131-13.082,28.975c-5.064,8.847-11.067,17.338-18.356,25.958c-6.271,7.418-7.194,17.978-2.305,26.368
+			l27.078,46.472l-73.391,42.749L341.129,465.911z" />
+              <path d="M392.531,346.458c16.472-28.773,20.746-62.24,12.047-94.232s-29.342-58.685-58.115-75.151
+			c-18.761-10.74-40.05-16.417-61.562-16.417c-44.446,0-85.762,23.944-107.822,62.485c-33.994,59.404-13.327,135.39,46.071,169.386
+			c18.764,10.737,40.052,16.411,61.564,16.411C329.158,408.943,370.475,385.001,392.531,346.458z M352.696,323.658
+			c-13.902,24.293-39.955,39.385-67.985,39.385c-13.528,0-26.934-3.58-38.764-10.349c-37.433-21.426-50.456-69.312-29.033-106.751
+			c13.905-24.291,39.958-39.385,67.987-39.385c13.528,0,26.932,3.58,38.762,10.355c18.136,10.379,31.142,27.197,36.628,47.359
+			C365.771,284.435,363.075,305.524,352.696,323.658z" />
+            </g>
+          </g>
+        </svg>
+      </div>
+    </button>
+
+    <div id="settingsContainer">
+      <div>
+        Settings
+      </div>
+      <div>
+        <div class="column">
+          <label for="font">Font Size:</label>
+          <input type="range" min="2" max="32" id="font"></input>
+          <div id="fontValue"></div>
+        </div>
+        <div class="line">
+          Example:
+          <p id="fontExample">AaEeIiOoUu</p>
+        </div>
+        <div class="column">
+          <label for="notesFont">Notes Font Size:</label>
+          <input type="range" min="2" max="32" id="notesFont"></input>
+          <div id="notesFontValue"></div>
+        </div>
+        <div class="line">
+          Example:
+          <p id="notesFontExample">AaEeIiOoUu</p>
+        </div>
+        <div class="line spaceBetween">
+          <label for="background">Background Color:</label>
+          <input type="color" id="background"></input>
+        </div>
+        <div class="line spaceBetween">
+          <label for="foreground">Foreground Color:</label>
+          <input type="color" id="foreground"></input>
+        </div>
+        <div class="line spaceBetween">
+          <label for="textColor">Text Color:</label>
+          <input type="color" id="textColor"></input>
+        </div>
+        <div class="line spaceBetween">
+          <label for="linkColor">Link Color:</label>
+          <input type="color" id="linkColor"></input>
+        </div>
+        <div class="line spaceBetween">
+          <label for="inputTextColor">Input Text Color:</label>
+          <input type="color" id="inputTextColor"></input>
+        </div>
+        <div class="line spaceBetween">
+          <label for="inputBackgroundColor">Input Background Color:</label>
+          <input type="color" id="inputBackgroundColor"></input>
+        </div>
+        <div class="line spaceBetween">
+          <div>
+            Reset Prompt:
+          </div>
+          <div>
+            <label for="resetRadioOn">On:</label>
+            <input type="radio" id="resetRadioOn" name="resetRadio" checked></input>
+          </div>
+          <div>
+            <label for="resetRadioOff">Off:</label>
+            <input type="radio" id="resetRadioOff" name="resetRadio"></input>
+          </div>
+        </div>
+        <div class="spaceBetween">
+          <div>
+            Restore Default Settings:
+          </div>
+          <button id="defaultButton">
+            Default
+          </button>
+        </div>
+      </div>
+      <div id="settingsButtons">
+        <button id="settingsConfirm">
+          Confirm Settings
+        </button>
+        <button id="settingsCancel">
+          Cancel
+        </button>
+      </div>
+    </div>
+    <div id="resetDefaultContainer">
+      <div>
+        Reset to default settings?
+      </div>
+      <div>
+        <button id="defaultYes">
+          Yes
+        </button>
+        <button id="defaultNo">
+          No
+        </button>
+      </div>
+    </div>
+    <div id="apKick" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Kicking The Radio From The AP</p>
+          <p class="textBody">When in the AP bring up the station list by pressing the s key on the keyboard or click on the box containing the customer's name in the top right. You will need to scroll to the right in the station list till you see the option to kick the radios in the AP. Ensure you have the correct customer and kick them. Similar to rebooting the process takes a moment but the radio will come back up soon.</p>
+          <img class="long" src="./images/apKick.png" alt="kicking the radio from the AP"></img>
+        </div>
+      </div>
+    </div>
+    <div id="optimalRouter" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Optimal Router Wifi Settings</p>
+          <p class="textBody">Currently Calix and Vilo don't have an optimal standard for wifi settings. In the "Interface List" select both "wlan1" and "wlan2"(if working in a single band router there will only be "wlan1"). Go to the "Wireless" tab and make sure to select "Advanced Mode" on the right side of the panel. Included is a reference image for what router settings should look like, but here is a list of them written out:
+          <ul>
+            <li>Channel Width: 20MHz (20/40XX if they're on anything over 100Mbps)</li>
+            <li>Frequency Mode: regulatory-domain</li>
+            <li>Country: united states3</li>
+            <li>Installation: any</li>
+            <li>WMM Support: enabled</li>
+          </ul>
+          </p>
+          <img class="tall" src="./images/routerSettings.png" alt="optimal router wifi settings"></img>
+        </div>
+      </div>
+    </div>
+    <div id="frequencyCheck" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Checking the frequency</p>
+          <p class="title">How to find:</p>
+          <p class="textBody">The radio frequency is listed differently under every radio. You will find the frequency on the opening page within the radio except for Tarana which will be in the "WebUI". You will also notice two frequencies as Tarana uses two different frequencies for their upload and download labeled "Carrier 0" and "Carrier 1". For the router in the "Interface" window double-click "wlan2" and select the "Status" tab. You will see the frequency listed under "Channel" (if working with a single band router that shows only "wlan1" refer to the Why section below). </p>
+          <p class="title">Explanation:</p>
+          <p class="textBody">If the ends of the frequencies overlap this can cause issues for the connection. Specifically radios, except Telrad, operate on a 5GHz channel and a dual band router or mesh will have a 2.4GHz and 5GHz channel. You won't experience this issue on our single band routers as they only operate on the 2.4GHz channel. These frequencies are a whole spectrum so they work together just fine up until they operate on the same frequency. Generally unless you see a frequency range you should assume when provided a frequency it's the center of the frequency. Most radios work on a 40MHz range which means from the center it reaches 20 more and 20 less. Routers should be set to 20Mhz which would be 10 more and 10 less from the center.<br>Example:<br>Good: Radio Center: 5755 Range: 5735-5775 Router Center: 5200 Range: 5190-5210<br>Bad: Radio Center: 5220 Range: 5200-5240 Router Center: 5200 Range: 5190-5210</p>
+          <p class="title">What to do:</p>
+          <p class="textBody">If the router is operating on the same spectrum as the radio, you can use the "Snooper" or "Freq. Usage" tool to have the router choose a better frequency.</p>
+          <img class="long" src="./images/frequencyCheck.png" alt="Checking the frequency"></img>
+        </div>
+      </div>
+    </div>
+    <div id="powerCycle" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Before power cycling</p>
+          <p class="textBody">If the customer has one of our Mikrotik routers and it is accessible, something that helps in the troubleshooting process is if we can get the logs before power cycling. After power cycling the logs would be lost. While in the router pull up "Files" and "New Terminal". Copy the following: <span class="highlight">/log print file=log.txt</span> then paste in the terminal and enter. In the "Files" tab you will see the new log.txt file which you can right click and download. You can then upload this to sonar when putting in your ticket.</p>
+          <img class="long" src="./images/powerCycleLogs.png" alt="Getting the logs from the router"></img>
+        </div>
+      </div>
+    </div>
+    <div id="passwordCheck" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Checking or changing the password</p>
+          <p class="textBody">When in the router click on the "Wireless" tab on the left. Make sure that in "Settings" at the top left "Hide Passwords" is unchecked". In the "Wireless" window click on the "Security Profiles" tab. This should contain one line for you to double click on. A "Secruity Profile" window will open up which has a line labeled "WPA2 Pre-Shared Key:" where you can view or change the password. If you change the password, make sure to hit the "OK" or "Apply" button.</p>
+          <img class="long" src="./images/passwordCheck.png" alt="Getting the password from the router"></img>
+        </div>
+      </div>
+    </div>
+    <div id="airspan" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Checking for Airspan</p>
+          <p class="textBody">In sonar on the "Network" tab under "Active Assignments" you can see if the Telrad equipment is labeled for Airspan.</p>
+          <img class="tall" src="./images/airspan.png" alt="airspan showing in the active assignments"></img>
+        </div>
+      </div>
+    </div>
+    <div id="breezeview" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Finding PCI and Cell when the radio is down</p>
+          <p class="textBody">You can find this information in older tickets but for guaranteed current Information it is best to look within breezeview. In breezeview you can find the radio and its most recent information by searching by its IMSI. You can find the "IMSI Number" for the radio in the "Inventory" tab within sonar. When in breezeview use the second searchbar which labels that it can "Find UE by IP, Serial or IMSI". Click on the highlighted serial number for the radio. You can then find the PCI and cell in the bottom left or under the "Status" tab.</p>
+          <img class="long" src="./images/breezeview1.png" alt="searching on breezeview by IMSI"></img>
+          <img class="long" src="./images/breezeview2.png" alt="finding the PCI and cell on the radios page"></img>
+          <p class="title">Finding the PCI/Node in breezeview</p>
+          <p class="textBody">When you have the PCI and cell open the menu in the top left of breezeview. Open the "Devices" tab and press the now appearing "Devices" option. Here is a list of all non-Airspan Telrad nodes. A few things to note when looking for the node is that the PCI will not always be under the "Device ID". In the example below you can see that the PCI gained from above is listed under the "Cell Physical ID". There are also duplicate numbers used so double check the name for the node and reference the area using your best judgement. Lastly some areas while appearing in breezeview don't have proper reporting. Currently this only includes Hobbs and Wellington.</p>
+          <img class="long" src="./images/breezeview3.png" alt="navigating the breezeview menu"></img>
+          <img class="long" src="./images/breezeview4.png" alt="finding the PCI and cell"></img>
+        </div>
+      </div>
+    </div>
+    <div id="accessAps" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Finding the AP</p>
+          <p class="textBody">You can find the AP 5 different ways. However, all 5 aren't guarenteed to get you the most recent AP the customer was connected to.</p>
+          <p class="title">Grafana Customer Lookup</p>
+          <p class="textBody">To use the grafana customer lookup dashboard copy the name exactly how it is in sonar and the account id then place the customer's name in the `*CUSTOMER NAME` field and the id into `CUSTOMER ID`. Under `CPE MAPPING` the AP with an IP should come up.</p>
+          <img class="long" src="./images/grafanaCustomerLookup1.png" alt="grafana customer lookup"></img>
+          <p class="title">Preseem</p>
+          <p class="textBody">Preseem does not support all technologies or all markets. If preseem is recording customer information you can look the customer up through preseem, pull up the AP information page, and then have a link for the APs IP.</p>
+          <img class="long" src="./images/preseem1.png" alt="preseem support page"></img>
+          <img class="long" src="./images/preseem2.png" alt="preseem AP page"></img>
+          <p class="title">Grafana Customer Search</p>
+          <p class="textBody">Grafana customer search is very specific in how it works. This dashboard is relatively new so not all technology is currently supported. Whenever you want to search for someone you need to copy their name exactly how it is in sonar and paste it into `CUSTOMER` <span class="highlight">NOT `CUSTOMER SEARCH`</span>. I don't have an answer on why it works this way. If the search was unsuccessful it will look like the second image below. This doesn't pull up the IP for the AP, but it does pull the APs name up to the right of the `CUSTOMER` tab in `AP SELECTION`. You will then have to pull it up manually by pulling the tower up through the network tab on Sonar.</p>
+          <img class="long" src="./images/grafanaCustomerSearch1.png" alt="grafana customer search"></img>
+          <img class="long" src="./images/grafanaCustomerSearch2.png" alt="grafana customer search no finds"></img>
+          <p class="title">Sonar</p>
+          <p class="textBody">The rules for sonars new way to pull up APs is inconsistent. So, if it is working properly, the APs IP will show up when you go to the customers `Network & Inventory` tab, then the `Inventory Items` tab, and then the `Connected Devices` tab on the Device you're trying to get the IP for. I have no real reference Image for this as I mentioned it is too inconsistent for an AP to show up on the account at the moment.</p>
+          <img class="long" src="./images/Sonar.png" alt="sonar inventory"><img>
+          <p class="title">Tickets and Jobs are a last resort</p>
+          <p class="textBody">The last place to check for an AP is previous tickets. Hopefully the customer has called in recently and someone recorded the AP the customer was on. You would then need to go through the `Network` sonar tab to find the tower then the AP.</p>
+        </div>
+      </div>
+    </div>
+    <div id="reseat" class="pageCover">
+      <div class="content">
+        <div>
+          <p class="title">Reseating and Verifying Cables</p>
+          <p class="textBody">Depending on the equipment the customer owns the cable going from the LAN port on the PoE can lead to different ports. To make sure the correct port is utilized consider the following:</p>
+	  <ul>
+	    <li>Black Mikrotik (arm): Port 1 which is also labeled Internet/PoE in.</li>
+	    <li>White Mikrotik (mipsbe): This is an older model of Mikrotik that you may see in circulation that has a max LAN speed of 100mbps full. Ideally we should be in port 1. However, if there is not a PoE on site port 5 can double as both a PoE and a WAN port. The router would need to be configured for one or the other to work so if they have a PoE it needs to be in port 1 if there is no PoE it should be in port 5.</li>
+            <li>Calix: There is a port labled with a black globe symbol to the right of two LAN ports.</li>
+	    <li>Tenda Nova Mesh: There is a port labeled with a blue globe symbol.</li>
+	    <li>Motorola Mesh/Vilo: The port is labeled WAN.</li>
+	    <li>Customer Owned Router: You may need to do some work with the customer to confirm, but the port is usually labeled WAN/Internet/Colored differently from the other ports.</li>
+	  </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="tree.js"></script>
+</body>
+
+</html>

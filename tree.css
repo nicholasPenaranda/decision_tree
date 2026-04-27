@@ -1,0 +1,553 @@
+:root {
+  font-size: var(--primaryFont);
+  font-family: sans-serif;
+  --color: #2a81fa;
+  --time: 0.75s;
+  --ease: ease-in-out;
+  --background: #212121;
+  --foreground: #303030;
+  --primaryFont: 12px;
+  --notesFont: 20px;
+  --textColor: #ffffff;
+  --linkColor: #ffff00;
+  --inputTextColor: #000000;
+  --inputBackgroundColor: #ffffff;
+}
+
+body {
+  transition: background-color var(--time) var(--ease), color var(--time) var(--ease);
+  background: var(--background);
+  color: var(--textColor);
+  margin: 0;
+  padding: 0;
+}
+
+#bodyWrap {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: auto auto auto auto 1fr;
+}
+
+button,
+input,
+select {
+  font-size: var(--primaryFont);
+}
+
+#additionalOptions {
+  display: none;
+  padding: 0 16px;
+  transition: border-color var(--time) var(--ease);
+  border-bottom: 3px solid var(--color);
+}
+
+#tree,
+#notesInput,
+#buttons {
+  margin-left: 16px;
+}
+
+#selectForm {
+  grid-area: 1 / 1 / span 1 / span 4;  
+  background-color: var(--foreground);
+  box-shadow: 0 1px 0 rgb(0,0,0,0.25);
+  padding: 8px;
+}
+
+#selectForm .border {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  max-width: 50vw;
+  padding: 8px 12px;
+}
+
+#selectForm .border .inputs {
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+  padding-bottom: 4px;
+}
+
+#selectForm .border div div {
+  transition: border-color var(--time) var(--ease);
+  border-right: 3px solid var(--color);
+  padding-left: 1vw;
+  padding-right: 1vw;
+  margin-top: 4px;
+}
+
+#selectForm .border div div:last-child {
+  border-right: 0;
+}
+
+#radioInputs {
+  padding: 32px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#notesInput {
+  grid-area: 4 / 1 / span 1 / span 1;
+  min-height: 20vh;
+  min-width: 50vw;
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  max-height: 30vh;
+  height: 100%;
+  width: 50vw;
+  color: var(--inputTextColor);
+  background: var(--inputBackgroundColor);
+  font-size: var(--notesFont);
+  font-family: sans-serif;
+}
+
+select,
+textarea,
+input {
+  transition: opacity 0.2s var(--ease);
+  border: 1px solid rgba(0,0,0,.12);
+  opacity: 0.8;
+  box-sizing: border-box;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(0,0,0,.045);
+}
+
+select,
+input {
+  padding: 0 5px;
+  border-radius: 6px;
+  min-height: 20px;
+}
+
+select:focus,
+textarea:focus,
+input:focus {
+  border: 1px solid var(--color);
+  opacity: 1;
+}
+
+#tree {
+  grid-area: 2 / 1 / span 2 / span 2;
+  min-width: 50vw;
+  max-width: 50vw;
+  min-height: 50vh;
+}
+
+#customerInfo {
+  grid-area: 5 / 1 / span 1 / span 2;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 16px;
+  padding-top: 8px;
+  gap: 8px;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  grid-area: 6 / 1 / span 1 / span 2;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.border {
+  transition: border-color var(--time) var(--ease);
+  border: 3px solid var(--color);
+  border-radius: 8px;
+}
+
+#optionRadioInputOuterContainer {
+  grid-area: 2 / 3 / span 3 / span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+}
+
+#optionRadioInputInnerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  background-color: var(--foreground);
+  transition: box-shadow var(--time) var(--ease), border var(--time) var(--ease);
+  box-shadow: 0 1px 5px var(--color);
+}
+
+.radioInfo {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-around;
+}
+
+.radioInfo div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25vh;
+}
+
+.radioInfo div label {
+  margin-right: 2px;
+}
+
+.radioInfo .ap {
+  grid-column-start: 1;
+  grid-column-end: span 2;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+input[type="text"] {
+  width: 162px;
+  color: var(--inputTextColor);
+  background: var(--inputBackgroundColor);
+}
+
+input[type="text"].shortInput {
+  width: 82.4px;
+  margin-right: 80px;
+}
+
+#additionalOptions li,
+li span {
+  text-decoration: underline solid ;
+  cursor: pointer;
+}
+
+#previousPrompts li {
+  padding-bottom: 2px;
+}
+
+#previousPrompts li:last-child {
+  padding-top: 12px;
+}
+
+#previousPrompts li:last-child span {
+  text-decoration: none;
+  cursor: auto;
+}
+
+#previousPrompts li:last-child span.popup {
+  color: var(--linkColor);
+  text-decoration: underline solid var(--linkColor);
+  cursor: pointer;
+}
+
+#resetDefaultContainer,
+#resetConfirm,
+#clipboardConfirm {
+  display: none;
+  background-color: var(--background);
+  width: 200px;
+  position: absolute;
+  top: calc(50vh - 25px);
+  left: calc(45vw - 100px);
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: 0 0 8px black;
+  transition: border-color var(--time) var(--ease);
+  border: 4px solid var(--color);
+  text-align: center;
+  padding: 2px 4px;
+}
+
+#resetDefaultContainer {
+  flex-direction: column;
+  z-index: 15;
+  min-height: 72px;
+  left: calc(50vw - 100px);
+}
+
+#resetConfirm {
+  flex-direction: column;
+  min-height: 72px;
+  z-index: 10;
+}
+
+#resetDefaultContainer div,
+#resetConfirm div {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#resetDefaultContainer div {
+  padding: 8px;
+}
+
+#clipboardConfirm {
+  cursor: pointer;
+  min-height: 50px;
+  z-index: 1;
+}
+
+.title {
+  font-size: calc(var(--primaryFont) * 1.6px);
+  font-weight: 700;
+}
+
+.pageCover {
+  position: fixed;
+  display: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.9);
+  cursor: pointer;
+  color: white;
+  justify-content:center;
+  align-items:center;
+}
+
+.pageCover div,
+.pageCover p,
+.pageCover img {
+  cursor: default;
+}
+
+.pageCover .content {
+  display: flex;
+  padding-right: 16px;
+  max-height: 100%; 
+  overflow-y: auto;
+  overflow-x: hidden;
+  cursor: pointer;
+}
+
+.content {
+  max-width: 80vw;
+}
+
+.textBody {
+  width: 50vw;
+}
+
+img.long {
+  width: 75vw;
+}
+
+#frequencyCheck img.long {
+  width: 60vw;
+}
+
+img.tall {
+  height: 70vh;
+}
+
+.highlight {
+  background: red;
+}
+
+button {
+  min-height: 21.3px;
+  font-size: var(--primaryFont);
+}
+
+#settingsButton {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#settingsButton div {
+  width: 24px;
+  height: 24px;
+}
+
+#cog {
+  transition: all 0.25s ease-in;
+}
+
+#settingsContainer {
+  display: none;
+  flex-direction: column;
+  padding: 16px 0;
+  background-color: var(--background);
+  width: 400px;
+  position: absolute;
+  min-height: fit-content;
+  top: 16px;
+  left: calc(50vw - 200px);
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: 0 0 16px black;
+  transition: border-color var(--time) var(--ease);
+  border: 4px solid var(--color);
+}
+
+#settingsButtons {
+  margin-top: 32px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#settingsContainer div:last-child {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.line {
+ border-bottom: 1px solid rgb(0,0,0,0.25);
+ padding-left: 8px;
+ padding-right: 8px;
+ padding-bottom: 16px;
+ margin-bottom: 16px;
+ width: 200px;
+}
+
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#fontValue,
+#notesFontValue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column
+}
+
+@media (max-width: 1920px) {
+  #selectForm .border {
+    max-width: 60vw;
+  }
+}
+
+@media (max-width: 1250px) {
+  :root {
+    font-size: calc(var(--primaryFont) / 1.2px);
+  }
+
+  #selectForm .border {
+    max-width: 100%;
+    padding: 8px 0;
+  }
+ 
+  button,
+  input,
+  select {
+    font-size: calc(var(--primaryFont) / 1.2px);
+  }
+
+  input[type="text"] {
+    width: 81px;
+  }
+
+  input[type="text"].shortInput {
+    width: 41.2px;
+    margin-right: 40px;
+  }
+
+  textarea {
+    font-size: calc(var(--notesFont) / 1.11px);	
+    width: 468px;
+  }
+
+  #customerInfo {
+    display: grid;
+    grid-template-columns: 210px 110px 200px;
+    width: 50vw;
+  }
+
+  #optionRadioInputOuterContainer {
+    margin-right: 4px
+  }
+  
+  #settingsButton {
+    top: auto;
+    bottom: 16px;
+  }
+}
+
+@media (max-width: 650px) {
+  :root {
+    font-size: calc(var(--primaryFont) / 1.5px);
+  }
+ 
+  button,
+  input,
+  select {
+    font-size: calc(var(--primaryFont) / 1.5px);
+  }
+
+  input[type="text"] {
+    width: 70px;
+  }
+
+  input[type="text"].shortInput {
+    width: 30.8px;
+    margin-right: 30px;
+  }
+
+  #selectForm .border {
+    max-width: 80vw;
+  }
+
+  textarea {
+    font-size: calc(var(--notesFont) / 1.43px);
+  }
+}
+
+@media (max-width: 550px) {
+  :root {
+    font-size: calc(var(--primaryFont) / 1.5px);
+  }
+ 
+  button,
+  input,
+  select {
+    font-size: calc(var(--primaryFont) / 1.5px);
+  }
+
+  input[type="text"] {
+    width: 60px;
+  }
+
+  input[type="text"].shortInput {
+    width: 30.8px;
+    margin-right: 30px;
+  }
+  
+  #selectForm .border {
+    max-width: 80vw;
+  }
+
+  textarea {
+    font-size: calc(var(--notesFont) / 1.43px);
+  }
+
+  #optionRadioInputContainer {
+    min-width: 75vw;
+  }
+
+  #notesInput {
+    min-width:50vw;
+  }
+
+  #selectForm .border {
+    width: 85vw;
+    padding: 8px 12px;
+  }
+}
