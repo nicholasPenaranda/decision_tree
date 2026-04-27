@@ -4,7 +4,7 @@
 
 ### Overview
 
-This decision tree is created to aid Resound Networks Tier 1 technical support agents. The idea is to streamline the base of what is expected from Tier 1 agents. The current iteration contains trees for billing and technical support issues that involve Ubiquiti, Telrad, Mimosa, Cambium, and Tarana.
+This decision tree is created to aid Tier 1 technical support agents. The idea is to streamline the base of what is expected from Tier 1 agents. The current iteration contains trees for billing and technical support issues that involve Ubiquiti, Telrad, Mimosa, Cambium, and Tarana.
 
 ***
 
